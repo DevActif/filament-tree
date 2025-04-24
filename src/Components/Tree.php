@@ -2,17 +2,11 @@
 
 namespace SolutionForest\FilamentTree\Components;
 
-use Filament\Forms\ComponentContainer;
 use Filament\Support\Components\ViewComponent;
-use Illuminate\Database\Eloquent\Model;
-use SolutionForest\FilamentTree\Concern\BelongsToLivewire;
-use SolutionForest\FilamentTree\Contract\HasTree;
-use SolutionForest\FilamentTree\Support\Utils;
+use SolutionForest\FilamentTree\Data\TreeData;
 
 class Tree extends ViewComponent
 {
-    use BelongsToLivewire;
-
     protected string $view = 'filament-tree::components.tree.index';
 
     protected string $viewIdentifier = 'tree';
@@ -61,29 +55,35 @@ class Tree extends ViewComponent
         return $this->actions;
     }
 
-    public function getModel(): string
-    {
-        return $this->getLivewire()->getModel();
-    }
-
-    public function getRecordKey(?Model $record): ?string
+    public function getRecordKey(?TreeData $record): ?string
     {
         if (! $record) {
             return null;
         }
-        return $record->getAttributeValue($record->getKeyName());
+
+        return $record->id;
     }
 
-    public function getParentKey(?Model $record):?string
+    public function getParentKey(?TreeData $record): ?string
     {
         if (! $record) {
             return null;
         }
-        return $record->getAttributeValue((method_exists($record, 'determineParentKey') ? $record->determineParentColumnName() : Utils::parentColumnName()));
+
+        return $record->parent_id;
     }
 
-    public function getMountedActionForm(): ?ComponentContainer
+    protected HasTree $livewire;
+
+    public function livewire(HasTree $livewire): static
     {
-        return $this->getLivewire()->getMountedTreeActionForm();
+        $this->livewire = $livewire;
+
+        return $this;
+    }
+
+    public function getLivewire(): HasTree
+    {
+        return $this->livewire;
     }
 }
