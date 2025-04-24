@@ -8,6 +8,7 @@ use Filament\Actions\Contracts\Groupable;
 use Filament\Actions\MountableAction;
 use Filament\Actions\StaticAction;
 use SolutionForest\FilamentTree\Data\TreeData;
+use SolutionForest\FilamentTree\Concern\BelongsToTree;
 
 class Action extends MountableAction implements ActionHasTree, Groupable
 {
