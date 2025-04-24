@@ -3,6 +3,7 @@
 namespace SolutionForest\FilamentTree\Contract;
 
 use SolutionForest\FilamentTree\Data\TreeData;
+use SolutionForest\FilamentTree\Components\Tree;
 
 interface HasTree
 {
