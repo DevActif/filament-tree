@@ -4,6 +4,7 @@ namespace SolutionForest\FilamentTree\Components;
 
 use Filament\Support\Components\ViewComponent;
 use SolutionForest\FilamentTree\Data\TreeData;
+use SolutionForest\FilamentTree\Contract\HasTree;
 
 class Tree extends ViewComponent
 {
