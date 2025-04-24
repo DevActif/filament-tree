@@ -10,6 +10,8 @@ use SolutionForest\FilamentTree\Concern\HasEmptyState;
 use SolutionForest\FilamentTree\Concern\HasHeading;
 use SolutionForest\FilamentTree\Concern\HasRecords;
 use SolutionForest\FilamentTree\Support\Utils;
+use SolutionForest\FilamentTree\Components\Tree;
+
 
 trait InteractWithTree
 {
