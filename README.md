@@ -34,7 +34,7 @@ php artisan filament:assets
 
 > **Note: Add plugin Blade files to your custom theme `tailwind.config.js` for dark mode.**
 > 
-> To set up your own custom theme, you can visit the [official instruction page](https://filamentphp.com/docs/3.x/panels/themes#creating-a-custom-theme) on the Filament website.
+> To set up your own custom theme, you can visit the [official instruction page](https://filamentphp.com/docs/4.x/panels/themes#creating-a-custom-theme) on the Filament website.
 
 Add the plugin's views to your `tailwind.config.js` file.
 
@@ -94,14 +94,7 @@ Schema::create('product_categories', function (Blueprint $table) {
     $table->timestamps();
 });
 ```
-This plugin provides a convenient method called `treeColumns()` that you can use to add the required columns for the tree structure to your table more easily. Here's an example:
-```
-Schema::create('product_categories', function (Blueprint $table) {
-    $table->id();
-    $table->treeColumns();
-    $table->timestamps();
-});
-```
+
 This will automatically add the required columns for the tree structure to your table.
 
 

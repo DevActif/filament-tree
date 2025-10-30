@@ -4,11 +4,10 @@ namespace SolutionForest\FilamentTree\Actions;
 
 use Filament\Actions\ActionGroup as BaseActionGroup;
 use Filament\Actions\Concerns\InteractsWithRecord;
-use Filament\Actions\Contracts\HasRecord;
 use SolutionForest\FilamentTree\Components\Tree;
 use SolutionForest\FilamentTree\Concern\Actions\HasTree;
 
-class ActionGroup extends BaseActionGroup implements HasRecord, HasTree
+class ActionGroup extends BaseActionGroup implements HasTree
 {
     use InteractsWithRecord;
 

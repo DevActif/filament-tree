@@ -4,14 +4,12 @@ namespace SolutionForest\FilamentTree\Actions;
 
 use Closure;
 use Filament\Actions\Concerns\HasMountableArguments;
-use Filament\Actions\Contracts\Groupable;
-use Filament\Actions\MountableAction;
-use Filament\Actions\StaticAction;
+use Filament\Actions\Action as BaseAction;
 use SolutionForest\FilamentTree\Data\TreeData;
 use SolutionForest\FilamentTree\Concern\BelongsToTree;
 use SolutionForest\FilamentTree\Concern\Actions\HasTree;
 
-class Action extends MountableAction implements HasTree, Groupable
+class Action extends BaseAction implements HasTree
 {
     use BelongsToTree;
     use HasMountableArguments;
@@ -48,7 +46,7 @@ class Action extends MountableAction implements HasTree, Groupable
     protected function resolveDefaultClosureDependencyForEvaluationByName(string $parameterName): array
     {
         return match ($parameterName) {
-            'record' => [$this->getRecord()],
+            'record' => [$this->getTreeRecord()],
             'tree' => [$this->getTree()],
             default => parent::resolveDefaultClosureDependencyForEvaluationByName($parameterName),
         };
@@ -59,7 +57,7 @@ class Action extends MountableAction implements HasTree, Groupable
      */
     protected function resolveDefaultClosureDependencyForEvaluationByType(string $parameterType): array
     {
-        $record = $this->getRecord();
+        $record = $this->getTreeRecord();
 
         if (! $record) {
             return parent::resolveDefaultClosureDependencyForEvaluationByType($parameterType);
@@ -71,7 +69,7 @@ class Action extends MountableAction implements HasTree, Groupable
         };
     }
 
-    public function prepareModalAction(StaticAction $action): StaticAction
+    public function prepareModalAction(BaseAction $action): BaseAction
     {
         $action = parent::prepareModalAction($action);
 
@@ -81,7 +79,7 @@ class Action extends MountableAction implements HasTree, Groupable
 
         return $action
             ->tree($this->getTree())
-            ->record($this->getRecord());
+            ->treeRecord($this->getTreeRecord());
     }
 
     protected function getDefaultEvaluationParameters(): array
@@ -92,18 +90,17 @@ class Action extends MountableAction implements HasTree, Groupable
             ->toArray();
     }
 
-    protected TreeData|Closure|null $record = null;
+    protected TreeData|Closure|null $treeRecord = null;
 
-    public function record(TreeData|Closure|null $record): static
+    public function treeRecord(TreeData|Closure|null $record): static
     {
-        $this->record = $record;
+        $this->treeRecord = $record;
 
         return $this;
     }
 
-    public function getRecord(): ?TreeData
+    public function getTreeRecord(): ?TreeData
     {
-        return $this->evaluate($this->record);
-
+        return $this->evaluate($this->treeRecord);
     }
 }

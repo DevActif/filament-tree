@@ -3,7 +3,7 @@
 namespace SolutionForest\FilamentTree\Actions;
 
 use Closure;
-use Filament\Actions\StaticAction;
+use Filament\Actions\Action as BaseAction;
 use Illuminate\Database\Eloquent\Model;
 use SolutionForest\FilamentTree\Components\Tree;
 
@@ -25,13 +25,13 @@ class ViewAction extends Action
         $this->modalHeading(fn (): string => __('filament-actions::view.single.modal.heading', ['label' => $this->getRecordTitle()]));
 
         $this->modalSubmitAction(false);
-        $this->modalCancelAction(fn (StaticAction $action) => $action->label(__('filament-actions::view.single.modal.actions.close.label')));
+        $this->modalCancelAction(fn (BaseAction $action) => $action->label(__('filament-actions::view.single.modal.actions.close.label')));
 
         $this->color('gray');
 
         $this->icon('heroicon-m-eye');
 
-        $this->disabledForm();
+        $this->disabledSchema();
 
         $this->fillForm(function (Model $record, Tree $tree): array {
             if ($translatableContentDriver = $tree->makeFilamentTranslatableContentDriver()) {

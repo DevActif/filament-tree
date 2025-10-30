@@ -71,7 +71,7 @@ trait HasActions
             return null;
         }
 
-        if (filled($this->mountedTreeActionRecord) && ($action->getRecord() === null)) {
+        if (filled($this->mountedTreeActionRecord) && ($action->getTreeRecord() === null)) {
             return null;
         }
 
@@ -89,7 +89,7 @@ trait HasActions
             if ($this->mountedTreeActionHasForm()) {
                 $action->callBeforeFormValidated();
 
-                $action->formData($form->getState());
+                $action->data($form->getState());
 
                 $action->callAfterFormValidated();
             }
@@ -107,7 +107,7 @@ trait HasActions
         }
 
         $action->resetArguments();
-        $action->resetFormData();
+        $action->resetData();
 
         $this->unmountTreeAction();
 
@@ -136,7 +136,7 @@ trait HasActions
             return null;
         }
 
-        if (filled($record) && ($action->getRecord() === null)) {
+        if (filled($record) && ($action->getTreeRecord() === null)) {
             return;
         }
 
@@ -279,7 +279,7 @@ trait HasActions
 
     protected function cacheMountedTreeActionForm(): void
     {
-        $this->cacheForm(
+        $this->cacheSchema(
             'mountedTreeActionForm',
             fn () => $this->getMountedTreeActionForm(),
         );
@@ -293,11 +293,11 @@ trait HasActions
             return null;
         }
 
-        if ((! $this->isCachingForms) && $this->hasCachedForm('mountedTreeActionForm')) {
-            return $this->getCachedForm('mountedTreeActionForm');
+        if ((! $this->isCachingForms) && $this->hasCachedSchema('mountedTreeActionForm')) {
+            return $this->getCachedSchema('mountedTreeActionForm');
         }
 
-        return $action->getForm(
+        return $action->getSchema(
             $this->makeForm()
                 ->model($this->getMountedTreeActionRecord() ?? $this->getTreeQuery()->getModel()::class)
                 ->statePath('mountedTreeActionData.' . array_key_last($this->mountedTreeActionData))

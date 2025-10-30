@@ -2,7 +2,6 @@
 
 namespace SolutionForest\FilamentTree\Data;
 
-use Akaunting\Money\Money;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Spatie\LaravelData\Data;
@@ -18,7 +17,7 @@ class TreeData extends Data
         public string $icon,
         public Collection $children,
         public string $url,
-        public ?Money $subTotal,
+        public mixed $subTotal,
         public ?HtmlString $description = null,
     ) {}
 

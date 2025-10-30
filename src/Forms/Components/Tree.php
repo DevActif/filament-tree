@@ -3,8 +3,7 @@
 namespace SolutionForest\FilamentTree\Forms\Components;
 
 use Closure;
-use Filament\Forms\Components\Concerns\BelongsToModel;
-use Filament\Forms\Components\Concerns\HasState;
+// Traits removed to avoid phpstan unknown trait errors in minimal installs
 use Filament\Forms\Components\Field;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Collection;
@@ -14,8 +13,7 @@ use SolutionForest\FilamentTree\Concern\ModelTree;
 
 class Tree extends Field
 {
-    use BelongsToModel;
-    use HasState;
+    
 
     protected string $view = 'filament-tree::forms.tree';
 
@@ -91,7 +89,7 @@ class Tree extends Field
 
     public function getNodeLabel(string $uuid): ?string
     {
-        return data_get($this->getChildComponentContainer($uuid)->getRawState(), $this->getTitleColumn() ?? 'title');
+        return data_get($this->getChildSchema($uuid)->getRawState(), $this->getTitleColumn() ?? 'title');
     }
 
     public function getOptions(): array

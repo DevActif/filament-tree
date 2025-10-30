@@ -11,11 +11,9 @@
     $actions = array_filter(
         $actions,
         function ($action) use ($record): bool {
-
-            if (! $action instanceof \SolutionForest\FilamentTree\Actions\Modal\Action) {
-                $action->record($record);
+            if ($action instanceof \SolutionForest\FilamentTree\Actions\Action) {
+                $action->treeRecord($record);
             }
-            
             return $action->isVisible();
         },
     );

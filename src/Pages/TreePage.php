@@ -4,7 +4,7 @@ namespace SolutionForest\FilamentTree\Pages;
 
 use Filament\Actions\Action as FilamentActionsAction;
 use Filament\Actions\CreateAction;
-use Filament\Infolists\Components\Component as InfolistsComponent;
+// Avoid direct import to prevent class discovery issues in phpstan environments
 use Filament\Pages\Actions\Action as PagesAction;
 use Filament\Pages\Page;
 use SolutionForest\FilamentTree\Actions;
@@ -16,7 +16,7 @@ abstract class TreePage extends Page implements HasTree
 {
     use InteractWithTree;
 
-    protected static string $view = 'filament-tree::pages.tree';
+    protected string $view = 'filament-tree::pages.tree';
 
     protected static string $viewIdentifier = 'tree';
 
@@ -114,7 +114,7 @@ abstract class TreePage extends Page implements HasTree
             $schema = $this->getFormSchema();
         }
 
-        $action->form($schema);
+        $action->schema($schema);
 
         $action->model($this->getModel());
 
@@ -146,7 +146,7 @@ abstract class TreePage extends Page implements HasTree
             $schema = $this->getFormSchema();
         }
 
-        $action->form($schema);
+        $action->schema($schema);
 
         $action->model($this->getModel());
 
@@ -169,12 +169,12 @@ abstract class TreePage extends Page implements HasTree
             $schema = $this->getFormSchema();
         }
 
-        $action->form($this->getFormSchema());
+        $action->schema($this->getFormSchema());
 
-        $isInfoList = count(array_filter($schema, fn ($component) => $component instanceof InfolistsComponent)) > 0;
+        $isInfoList = class_exists('Filament\\Infolists\\Components\\Component') && count(array_filter($schema, fn ($component) => $component instanceof \Filament\Infolists\Components\Component)) > 0;
 
         if ($isInfoList) {
-            $action->infolist($schema);
+            $action->schema($schema);
         }
 
         $action->model($this->getModel());

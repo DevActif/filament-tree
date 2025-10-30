@@ -10,7 +10,6 @@ use Filament\Support\Facades\FilamentView;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Assets\AlpineComponent;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use SolutionForest\FilamentTree\Macros\BlueprintMarcos;
 
 class FilamentTreeServiceProvider extends PackageServiceProvider
 {
@@ -33,7 +32,6 @@ class FilamentTreeServiceProvider extends PackageServiceProvider
     {
         parent::boot();
 
-        $this->registerBlueprintMacros();
     }
 
     public function packageBooted(): void
@@ -45,10 +43,5 @@ class FilamentTreeServiceProvider extends PackageServiceProvider
         FilamentAsset::register([
             AlpineComponent::make('filament-tree-component', __DIR__ . '/../resources/dist/components/filament-tree-component.js'),
         ], 'solution-forest/filament-tree');
-    }
-
-    protected function registerBlueprintMacros()
-    {
-        Blueprint::mixin(new BlueprintMarcos);
     }
 }
